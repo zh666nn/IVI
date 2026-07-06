@@ -1,6 +1,6 @@
 # Qt 智能车载终端系统
 
-基于 Qt5 Widgets 开发的智能车载终端应用，面向嵌入式 Linux 车载信息娱乐场景。项目实现了首页图标导航、视频播放、音乐播放、车内环境检测、天气定位和倒车影像预留页面，适合在 Linux 桌面环境开发调试，并可移植到 i.MX6U / i.MX6ULL 等嵌入式 Linux 平台运行。
+基于 Qt5 Widgets 开发的智能车载终端应用，面向嵌入式 Linux 车载信息娱乐场景。项目实现了首页图标导航、视频播放、音乐播放、车内环境检测、天气定位和倒车影像预留页面，已完成交叉编译并部署到 i.MX6U 嵌入式 Linux 开发板运行。
 
 ## 技术栈
 
@@ -15,8 +15,8 @@
 | 数据解析 | `QJsonDocument`、`QJsonObject`、`QJsonArray` |
 | 第三方接口 | 高德天气 API |
 | 资源管理 | Qt Resource System、`.qrc` |
-| 构建工具 | qmake、Qt Creator |
-| 运行平台 | Linux 桌面、嵌入式 Linux |
+| 构建工具 | qmake、Qt Creator、ARM 交叉编译工具链 |
+| 运行平台 | Linux 桌面、i.MX6U 嵌入式 Linux |
 
 ## 功能模块
 
@@ -139,6 +139,29 @@ make -j$(nproc)
 ./IVI
 ```
 
+### 交叉编译与板端运行
+
+项目已使用 ARM 交叉编译工具链构建，并部署到 i.MX6U 嵌入式 Linux 开发板运行。整体流程如下：
+
+```text
+Ubuntu 主机
+    -> 使用板端 Qt 对应的 qmake 生成 Makefile
+    -> ARM 交叉编译工具链编译生成可执行文件
+    -> 通过 scp/U 盘等方式拷贝到 i.MX6U 开发板
+    -> 配置 Qt 运行环境和显示平台插件
+    -> 在板端启动 IVI 程序
+```
+
+板端运行时需要根据实际镜像和 Qt 部署路径配置环境变量，例如：
+
+```bash
+export QT_QPA_PLATFORM=linuxfb
+export LD_LIBRARY_PATH=/opt/qt/lib:$LD_LIBRARY_PATH
+./IVI
+```
+
+如果板端使用触摸屏或 framebuffer 显示，需要确认 Qt 平台插件、字体路径、屏幕分辨率和多媒体后端已经正确部署。
+
 ## 运行依赖
 
 Qt 模块：
@@ -160,9 +183,9 @@ sudo apt install gstreamer1.0-plugins-base \
                  gstreamer1.0-libav
 ```
 
-## 板端移植说明
+## 板端运行说明
 
-该项目主要使用 Qt 应用层接口，适合移植到 i.MX6U / i.MX6ULL 等嵌入式 Linux 平台。板端部署时需要关注：
+该项目已完成 i.MX6U 板端部署验证。板端运行时需要关注：
 
 - 板端 Qt 版本需要包含 Widgets、Network、Multimedia 模块。
 - 音视频播放依赖板端 GStreamer 或对应多媒体后端。
@@ -176,7 +199,7 @@ sudo apt install gstreamer1.0-plugins-base \
 - 基于 `QMediaPlayer` 实现音视频播放，包含播放控制、进度同步、音量调节和播放列表。
 - 使用 `QNetworkAccessManager` 异步请求天气接口，完成 JSON 数据解析和界面更新。
 - 使用 `QTimer` 完成首页时间刷新和环境数据模拟，体现 Qt 信号槽和事件驱动编程。
-- 项目功能覆盖图形界面、音视频、网络通信、JSON 解析、资源管理和嵌入式 Linux 部署。
+- 项目功能覆盖图形界面、音视频、网络通信、JSON 解析、资源管理、交叉编译和嵌入式 Linux 板端部署。
 
 ## 技术要点
 
@@ -186,4 +209,4 @@ sudo apt install gstreamer1.0-plugins-base \
 - `QNetworkAccessManager` 的异步请求机制，以及如何解析高德天气 API 返回的 JSON。
 - Linux 下 Qt 多媒体播放为什么依赖 GStreamer。
 - Qt 与 OpenSSL 版本不匹配导致 HTTPS 请求失败时的排查思路。
-- 项目如何从桌面 Linux 移植到 i.MX6U / i.MX6ULL 嵌入式 Linux 平台。
+- 项目从桌面 Linux 到 i.MX6U 板端交叉编译、部署和运行环境配置流程。
