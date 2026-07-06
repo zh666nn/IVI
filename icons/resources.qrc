@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>camera.png</file>
+        <file>env.png</file>
+        <file>music.png</file>
+        <file>video.png</file>
+        <file>weather.png</file>
+    </qresource>
+</RCC>
