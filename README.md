@@ -178,7 +178,7 @@ sudo apt install gstreamer1.0-plugins-base \
 - 使用 `QTimer` 完成首页时间刷新和环境数据模拟，体现 Qt 信号槽和事件驱动编程。
 - 项目功能覆盖图形界面、音视频、网络通信、JSON 解析、资源管理和嵌入式 Linux 部署。
 
-## 面试可讲点
+## 技术要点
 
 - 为什么使用 `QStackedWidget` 做多页面切换，而不是打开多个窗口。
 - `QMediaPlayer` 的媒体加载、播放控制和进度同步流程。
@@ -188,7 +188,7 @@ sudo apt install gstreamer1.0-plugins-base \
 - Qt 与 OpenSSL 版本不匹配导致 HTTPS 请求失败时的排查思路。
 - 项目如何从桌面 Linux 移植到 i.MX6U / i.MX6ULL 嵌入式 Linux 平台。
 
-## 后续扩展
+## 扩展方向
 
 - 天气 API Key 改为从 `config.ini` 读取，避免写死在代码中。
 - 环境检测模块接入真实串口传感器数据。
