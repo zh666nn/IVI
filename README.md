@@ -1,6 +1,6 @@
 # Qt 智能车载终端系统
 
-基于 Qt5 Widgets 开发的智能车载终端应用，面向嵌入式 Linux 车载信息娱乐场景。项目实现了首页图标导航、视频播放、音乐播放、车内环境检测、天气定位和倒车影像预留页面，已完成交叉编译并部署到 i.MX6U 嵌入式 Linux 开发板运行。
+基于 Qt5 Widgets 开发的智能车载终端应用，面向嵌入式 Linux 车载信息娱乐场景。项目实现了首页图标导航、视频播放、音乐播放、车内环境检测和天气定位等功能，已完成交叉编译并部署到 i.MX6U 嵌入式 Linux 开发板运行。
 
 ## 技术栈
 
@@ -54,10 +54,6 @@
 - 当前版本使用城市 `adcode` 查询，避免中文 URL 编码导致的请求问题。
 - 在部分 Linux/Qt 环境中，旧版 Qt 与新版 OpenSSL 可能存在 HTTPS 兼容问题，项目使用 HTTP 接口完成天气数据获取。
 
-### 倒车影像
-
-- 当前保留倒车影像功能页面和首页入口。
-- 后续可接入 USB 摄像头或 V4L2 视频采集，将 `/dev/video*` 画面显示到页面中。
 
 ## 项目结构
 
@@ -73,9 +69,28 @@ IVI
     ├── video.png
     ├── music.png
     ├── env.png
-    ├── weather.png
-    └── camera.png
+    └── weather.png
 ```
+
+## 运行效果
+
+项目截图建议放在 `docs/images/` 目录下，README 已预留展示位置。
+
+### 首页
+
+![首页](docs/images/home-page.png)
+
+### 视频播放器
+
+![视频播放器](docs/images/video-page.png)
+
+### 环境检测
+
+![环境检测](docs/images/env-page.png)
+
+### 天气定位
+
+![天气定位](docs/images/weather-page.png)
 
 ## 核心流程
 
@@ -86,8 +101,7 @@ IVI
     ├── videoButton   -> videoPage
     ├── musicButton   -> musicPage
     ├── envButton     -> envPage
-    ├── weatherButton -> weatherPage
-    └── cameraButton  -> cameraPage
+    └── weatherButton -> weatherPage
 ```
 
 ### 天气请求流程
@@ -191,7 +205,6 @@ sudo apt install gstreamer1.0-plugins-base \
 - 音视频播放依赖板端 GStreamer 或对应多媒体后端。
 - 天气功能需要板端具备网络连接能力。
 - 若使用 HTTPS 接口，需要保证 Qt SSL 插件与 OpenSSL 动态库版本匹配。
-- 倒车影像功能后续可通过 V4L2 或 OpenCV 接入摄像头。
 
 ## 项目亮点
 
