@@ -72,9 +72,6 @@ IVI
     └── weather.png
 ```
 
-## 运行效果
-
-项目截图建议放在 `docs/images/` 目录下，README 已预留展示位置。
 
 ### 首页
 
@@ -161,7 +158,7 @@ make -j$(nproc)
 Ubuntu 主机
     -> 使用板端 Qt 对应的 qmake 生成 Makefile
     -> ARM 交叉编译工具链编译生成可执行文件
-    -> 通过 scp/U 盘等方式拷贝到 i.MX6U 开发板
+    -> 通过 U 盘拷贝到 i.MX6U 开发板
     -> 配置 Qt 运行环境和显示平台插件
     -> 在板端启动 IVI 程序
 ```
