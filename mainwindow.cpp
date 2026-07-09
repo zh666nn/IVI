@@ -165,7 +165,7 @@ void MainWindow::initWeatherPage()
 {
     weatherManager = new QNetworkAccessManager(this);
 
-    amapKey = "6548e16e2a7798e427aad74dfa0600b2";
+    amapKey = "yourapikey"; // 替换为你的高德地图API Key
     weatherCity = "430100";
 
     connect(weatherManager, &QNetworkAccessManager::finished,
